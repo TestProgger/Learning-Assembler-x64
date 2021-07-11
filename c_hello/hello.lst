@@ -1,0 +1,29 @@
+     1                                  extern printf
+     2                                  
+     3                                  section .data
+     4 00000000 48656C6C6F20576F72-     	msg db "Hello World" , 0
+     4 00000009 6C6400             
+     5 0000000C 546869732069732025-     	fmtstr db "This is %s" , 10 , 0
+     5 00000015 730A00             
+     6                                  
+     7                                  section .bss
+     8                                  
+     9                                  section .text
+    10                                  	global main
+    11                                  
+    12                                  	main:
+    13 00000000 55                      		push rbp 
+    14 00000001 4889E5                  		mov rbp , rsp
+    15                                  
+    16 00000004 48BF-                   		mov rdi , fmtstr
+    16 00000006 [0C00000000000000] 
+    17 0000000E 48BE-                   		mov rsi , msg
+    17 00000010 [0000000000000000] 
+    18 00000018 4831C0                  		xor rax , rax
+    19 0000001B E8(00000000)            		call printf
+    20                                  
+    21 00000020 4889EC                  		mov rsp , rbp
+    22 00000023 5D                      		pop rbp
+    23 00000024 B83C000000              		mov rax , 60
+    24 00000029 4831FF                  		xor rdi , rdi 
+    25 0000002C 0F05                    		syscall

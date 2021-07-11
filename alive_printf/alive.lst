@@ -1,0 +1,86 @@
+     1                                  extern printf 
+     2                                  extern rand
+     3                                  
+     4                                  section .data
+     5 00000000 48656C6C6F20576F72-     	msg1 db "Hello World" , 10, 0
+     5 00000009 6C640A00           
+     6                                  	msg1len equ $-msg1-2
+     7                                  
+     8 0000000D 416C697665206B6963-     	msg2 db "Alive kicking" , 10, 0
+     8 00000016 6B696E670A00       
+     9                                  
+    10 0000001C 65010000                	radius dd 357
+    11 00000020 1F85EB51B81E0940        	pi dq 3.14
+    12                                  
+    13 00000028 25730A00                	fmtstr db "%s" , 10 , 0
+    14 0000002C 25660A00                	fmtflt db "%f" , 10 , 0
+    15 00000030 25640A00                	fmtint db "%d" , 10 , 0
+    16                                  
+    17                                  section .bss
+    18                                  
+    19                                  
+    20                                  section .text
+    21                                  
+    22                                  	global main
+    23                                  
+    24                                  	main:
+    25 00000000 55                      		push rbp
+    26 00000001 4889E5                  		mov rbp , rsp 
+    27                                  		
+    28                                  		; Print msg1
+    29                                  		
+    30 00000004 4831C0                  		xor rax , rax
+    31 00000007 48BF-                   		mov rdi , fmtstr
+    31 00000009 [2800000000000000] 
+    32 00000011 48BE-                   		mov rsi , msg1
+    32 00000013 [0000000000000000] 
+    33 0000001B E8(00000000)            		call printf
+    34                                  		
+    35                                  
+    36                                  		;Print msg2
+    37                                  
+    38 00000020 4831C0                  		xor rax , rax
+    39 00000023 48BF-                   		mov rdi , fmtstr
+    39 00000025 [2800000000000000] 
+    40 0000002D 48BE-                   		mov rsi , msg2
+    40 0000002F [0D00000000000000] 
+    41 00000037 E8(00000000)            		call printf
+    42                                  
+    43                                  		; Print radius
+    44                                  
+    45 0000003C 4831C0                  		xor rax , rax
+    46 0000003F 48BF-                   		mov rdi , fmtint
+    46 00000041 [3000000000000000] 
+    47 00000049 488B3425[1C000000]      		mov rsi , [radius]
+    48 00000051 E8(00000000)            		call printf
+    49                                  
+    50                                  		; Print pi
+    51                                  
+    52 00000056 4831C0                  		xor rax , rax
+    53 00000059 48FFC0                  		inc rax
+    54                                  
+    55 0000005C F30F7E0425-             		movq xmm0 , [pi]
+    55 00000061 [20000000]         
+    56 00000065 48BF-                   		mov rdi , fmtflt
+    56 00000067 [2C00000000000000] 
+    57 0000006F E8(00000000)            		call printf
+    58                                  
+    59                                  		
+    60 00000074 4889EC                  		mov rsp , rbp
+    61 00000077 5D                      		pop rbp
+    62                                  
+    63 00000078 C3                      ret
+    64                                  
+    65                                  
+    66                                  
+    67                                  
+    68                                  
+    69                                  
+    70                                  
+    71                                  
+    72                                  
+    73                                  
+    74                                  
+    75                                  
+    76                                  
+    77                                  

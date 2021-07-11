@@ -1,0 +1,60 @@
+     1                                  extern printf
+     2                                  
+     3                                  section .data
+     4 00000000 48656C6C6F202C2057-     	string db "Hello , World" , 0
+     4 00000009 6F726C6400         
+     5                                  	stringLen equ  $-string - 1
+     6 0000000E 4E6F726D616C205374-     	fmtNormal db "Normal String : %s" , 10 , 0
+     6 00000017 72696E67203A202573-
+     6 00000020 0A00               
+     7 00000022 526576657273656420-     	fmtReversed db "Reversed String: %s" , 10 , 0
+     7 0000002B 537472696E673A2025-
+     7 00000034 730A00             
+     8                                  
+     9                                  section .bss
+    10                                  
+    11                                  section .text
+    12                                  	global main
+    13                                  
+    14                                  	main:
+    15 00000000 55                      		push rbp
+    16 00000001 4889E5                  		mov rbp , rsp
+    17                                  
+    18 00000004 4831C0                  		xor rax , rax
+    19 00000007 48BF-                   		mov rdi , fmtNormal
+    19 00000009 [0E00000000000000] 
+    20 00000011 48BE-                   		mov rsi , string
+    20 00000013 [0000000000000000] 
+    21 0000001B E8(00000000)            		call printf
+    22                                  
+    23 00000020 4831C0                  		xor rax, rax	
+    24 00000023 4831C9                  		xor rcx , rcx
+    25                                  		pushLoop:
+    26 00000026 8A81[00000000]          			mov al , byte[string +rcx]
+    27 0000002C 50                      			push rax
+    28 0000002D 48FFC1                  			inc rcx
+    29 00000030 4883F90D                			cmp rcx , stringLen
+    30 00000034 7CF0                    			jl pushLoop
+    31                                  
+    32 00000036 4831C9                  		xor rcx , rcx
+    33                                  		popLoop:
+    34 00000039 58                      			pop rax
+    35 0000003A 8881[00000000]          			mov byte[string + rcx] , al
+    36 00000040 48FFC1                  			inc rcx
+    37 00000043 4883F90D                			cmp rcx , stringLen
+    38 00000047 7CF0                    			jl popLoop
+    39 00000049 C681[00000000]00        			mov byte[string + rcx] , 0
+    40                                  
+    41 00000050 48BF-                   		mov rdi , fmtReversed
+    41 00000052 [2200000000000000] 
+    42 0000005A 48BE-                   		mov rsi , string
+    42 0000005C [0000000000000000] 
+    43 00000064 4831C0                  		xor rax  , rax
+    44 00000067 E8(00000000)            		call printf
+    45                                  
+    46 0000006C 4889EC                  		mov rsp , rbp
+    47 0000006F 5D                      		pop rbp
+    48                                  
+    49 00000070 C3                      		ret
+    50                                  
+    51                                  
