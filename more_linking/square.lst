@@ -1,0 +1,17 @@
+     1                                  section .data
+     2                                  section .bss
+     3                                  
+     4                                  section .text
+     5                                  	global square
+     6                                  	square:
+     7 00000000 55                      		push rbp 
+     8 00000001 4889E5                  		mov rbp , rsp
+     9                                  
+    10 00000004 F20F10C8                		movsd xmm1 , xmm0
+    11 00000008 F20F59C9                		mulsd xmm1 , xmm1
+    12                                  
+    13 0000000C 4889EC                  		mov rsp , rbp
+    14 0000000F 5D                      		pop rbp
+    15 00000010 C3                      		ret
+    16                                  
+    17                                  		

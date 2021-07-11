@@ -1,0 +1,50 @@
+     1                                  extern printf
+     2                                  extern rand
+     3                                  
+     4                                  extern square
+     5                                  extern sqrt
+     6                                  
+     7                                  section .data
+     8 00000000 3D0AD7A3703D2240        	number1 dq 9.12
+     9 00000008 8FC2F5285C0F4040        	number2 dq 32.12
+    10                                  	
+    11 00000010 737172742825662920-     	fmtsqrt  db "sqrt(%f) = %f" , 10 , 0
+    11 00000019 3D2025660A00       
+    12 0000001F 73717228256629203D-     	fmtsquare db "sqr(%f) = %f" , 10 , 0
+    12 00000028 2025660A00         
+    13                                  
+    14                                  section .bss
+    15                                  
+    16                                  section .text
+    17                                  
+    18                                  	global main
+    19                                  
+    20                                  	main:
+    21 00000000 55                      		push rbp
+    22 00000001 4889E5                  		mov rbp , rsp
+    23                                  
+    24                                  		; SQRT func
+    25 00000004 F20F100425-             		movsd xmm0 , [number1]
+    25 00000009 [00000000]         
+    26 0000000D E8(00000000)            		call sqrt
+    27                                  
+    28 00000012 B802000000              		mov rax , 2
+    29                                  
+    30 00000017 48BF-                   		mov rdi , fmtsqrt
+    30 00000019 [1000000000000000] 
+    31 00000021 E8(00000000)            		call printf
+    32                                  
+    33                                  		; AREA Func
+    34                                  
+    35 00000026 F20F100425-             		movsd xmm0 , [number2]
+    35 0000002B [08000000]         
+    36 0000002F E8(00000000)            		call square
+    37                                  
+    38 00000034 B802000000              		mov rax , 2
+    39 00000039 48BF-                   		mov rdi , fmtsquare
+    39 0000003B [1F00000000000000] 
+    40 00000043 E8(00000000)            		call printf
+    41                                  
+    42 00000048 C9                      		leave 
+    43 00000049 C3                      		ret
+    44                                  

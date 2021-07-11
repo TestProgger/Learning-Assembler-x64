@@ -1,0 +1,14 @@
+     1                                  section .data
+     2                                  section .bss
+     3                                  
+     4                                  section .text
+     5                                  	global sqrt
+     6                                  
+     7                                  	sqrt:
+     8 00000000 55                      		push rbp
+     9 00000001 4889E5                  		mov rbp , rsp
+    10 00000004 F20F51C8                		sqrtsd xmm1 , xmm0
+    11 00000008 4889EC                  		mov rsp , rbp
+    12 0000000B 5D                      		pop rbp
+    13 0000000C C3                      		ret
+    14                                  
